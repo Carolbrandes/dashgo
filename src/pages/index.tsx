@@ -1,7 +1,7 @@
 import { Button, Flex, Stack } from "@chakra-ui/react";
 import { Input } from "../components/Form/Input";
 
-export default function Home() {
+export default function SignIn() {
   // *p=8 (medida espacamentos do chakra): para saber a medida em px basta multiplicar por 4, e ai nesse caso 32px. E para associar em rem dividir por 4
   return (
     <Flex w="100vw" h="100vh" align="center" justify="center">
