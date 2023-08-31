@@ -27,7 +27,7 @@ export function Sidebar() {
             <DrawerCloseButton mt="6" />
             <DrawerHeader>Navegação</DrawerHeader>
             <DrawerBody>
-              <Sidebar />
+              <SidebarNav />
             </DrawerBody>
           </DrawerContent>
         </DrawerOverlay>
