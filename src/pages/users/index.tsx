@@ -39,10 +39,8 @@ export default function UserList() {
               Usuários
             </Heading>
 
-            {/* passHref usamos pq o elemento filho nao e uma ancora */}
-            <Link href="/users/create" passHref>
+            <Link href="/users/create">
               <Button
-                as="a"
                 size="sm"
                 fontSize="sm"
                 colorScheme="pink"
@@ -86,7 +84,6 @@ export default function UserList() {
                 {isWideVersion && (
                   <Td>
                     <Button
-                      as="a"
                       size="sm"
                       fontSize="sm"
                       colorScheme="purple"
