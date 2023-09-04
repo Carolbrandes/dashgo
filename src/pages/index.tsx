@@ -1,14 +1,23 @@
 import { Button, Flex, Stack } from "@chakra-ui/react";
 import { Input } from "../components/Form/Input";
 import { useForm, SubmitHandler } from "react-hook-form";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 type SignInFormData = {
   email: string;
   password: string;
 };
 
+const signInFormSchema = yup.object().shape({
+  email: yup.string().required("E-mail obrigatório").email("E-mail inválido"),
+  password: yup.string().required("Senha obrigatória"),
+});
+
 export default function SignIn() {
-  const { register, handleSubmit, formState } = useForm();
+  const { register, handleSubmit, formState } = useForm({
+    resolver: yupResolver(signInFormSchema),
+  });
 
   // *nao colocou dessa forma values:SignInFormData pq o 2 param event nao seria tipado
   const handleSignIn: SubmitHandler<SignInFormData> = (values) => {
@@ -34,12 +43,14 @@ export default function SignIn() {
             name="email"
             type="email"
             label="E-mail"
+            error={formState.errors.email}
             {...register("email")}
           />
           <Input
             name="password"
             type="password"
             label="Senha"
+            error={formState.errors.password}
             {...register("password")}
           />
         </Stack>
