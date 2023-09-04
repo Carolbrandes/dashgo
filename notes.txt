@@ -1,0 +1,7 @@
+const {register, handlesubmit, formState} = useForm(...)
+
+const errors = formState.errors
+
+
+<Input 
+    {...register('email')}
