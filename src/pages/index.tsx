@@ -20,7 +20,8 @@ export default function SignIn() {
   });
 
   // *nao colocou dessa forma values:SignInFormData pq o 2 param event nao seria tipado
-  const handleSignIn: SubmitHandler<SignInFormData> = (values) => {
+  const handleSignIn: SubmitHandler<SignInFormData> = async (values) => {
+    await new Promise((resolve) => setTimeout(resolve, 2000));
     console.log("values =>", values);
   };
 
