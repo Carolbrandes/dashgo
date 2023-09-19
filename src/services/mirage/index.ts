@@ -1,4 +1,4 @@
-import { createServer, Factory, Model } from "miragejs";
+import { createServer, Factory, Model, Response } from "miragejs";
 import faker from "faker";
 
 type User = {
@@ -30,13 +30,27 @@ export function makeServer() {
     },
 
     seeds(server) {
-      server.createList("user", 10); // *criar 200 usuarios usando o factory user
+      server.createList("user", 200); // *criar 200 usuarios usando o factory user
     },
 
     routes() {
       this.namespace = "api";
       this.timing = 750; // *vai demora 750 milisegundos para chamada acontecer.
-      this.get("/users");
+      this.get("/users", function (schema, request) {
+        const { page = 1, per_page = 10 } = request.queryParams;
+
+        const total = schema.all("user").length;
+
+        const pageStart = (Number(page) - 1) * Number(per_page);
+        const pageEnd = pageStart + Number(per_page);
+
+        const users = this.serialize(schema.all("user")).users.slice(
+          pageStart,
+          pageEnd
+        );
+
+        return new Response(200, { "x-total-count": String(total) }, { users });
+      });
       this.post("/users");
 
       this.namespace = ""; // *o namespace das rotas do nextjs, definidas na pasta api, tb tem o namespace api, entao nessa linha resetamos o namespace aqui do mirage qd terminarmos de utilizar essas rotas para nao ter problema caso tenha alguma rota na pasta api
