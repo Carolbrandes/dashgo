@@ -26,7 +26,7 @@ import { useState } from "react";
 import { queryClient } from "../../services/queryClient";
 import { api } from "../../services/api";
 
-async function handlePrefetchUser(userId: number) {
+async function handlePrefetchUser(userId: string) {
   await queryClient.prefetchQuery(
     ["user", userId],
     async () => {
