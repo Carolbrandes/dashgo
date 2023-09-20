@@ -43,7 +43,7 @@ export async function getUsers(page: number): Promise<GetUsersResponse> {
 
 export function useUsers(page: number) {
   return useQuery(["users", page], () => getUsers(page), {
-    staleTime: 1000 * 5, // *durante 5 seg ela vai ter o status fresh, ela nao vai precisar ser recarregada,
+    staleTime: 1000 * 60 * 10, // *durante 10 minutos ela vai ter o status fresh, ela nao vai precisar ser recarregada,
   });
 }
 

@@ -51,6 +51,9 @@ export function makeServer() {
 
         return new Response(200, { "x-total-count": String(total) }, { users });
       });
+
+      this.get("/users/:id");
+
       this.post("/users");
 
       this.namespace = ""; // *o namespace das rotas do nextjs, definidas na pasta api, tb tem o namespace api, entao nessa linha resetamos o namespace aqui do mirage qd terminarmos de utilizar essas rotas para nao ter problema caso tenha alguma rota na pasta api
