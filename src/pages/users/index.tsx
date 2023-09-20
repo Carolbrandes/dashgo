@@ -21,11 +21,10 @@ import { Sidebar } from "../../components/Sidebar";
 import { RiAddLine, RiPencilLine } from "react-icons/ri";
 import { Pagination } from "../../components/Pagination";
 import NextLink from "next/link";
-import { getUsers, useUsers } from "../../services/hooks/useUsers";
+import { useUsers } from "../../services/hooks/useUsers";
 import { useState } from "react";
 import { queryClient } from "../../services/queryClient";
 import { api } from "../../services/api";
-import { GetServerSideProps } from "next/types";
 
 async function handlePrefetchUser(userId: string) {
   await queryClient.prefetchQuery(
@@ -40,12 +39,10 @@ async function handlePrefetchUser(userId: string) {
   );
 }
 
-export default function UserList({ users }) {
+export default function UserList() {
   const [page, setPage] = useState(1);
   // *users: chave para armazenar em cache. E essa chave e utilizada para resetar, excluir, atualizar esse dados em cache
-  const { data, isLoading, isFetching, error } = useUsers(page, {
-    initialData: users,
-  });
+  const { data, isLoading, isFetching, error } = useUsers(page);
 
   const isWideVersion = useBreakpointValue({
     base: false,
@@ -155,13 +152,3 @@ export default function UserList({ users }) {
     </Box>
   );
 }
-
-// *integracao do react query com ssr
-export const getServerSideProps: GetServerSideProps = async () => {
-  const { users, totalCount } = await getUsers(1);
-  return {
-    props: {
-      users,
-    },
-  };
-};
